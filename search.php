@@ -12,7 +12,7 @@
 
 <body>
     <?php
-    $sql = "SELECT id, firstname, lastname, email FROM MyGuests WHERE lastname='Doe'";
+    $sql = "SELECT id, firstname, lastname, email FROM MyGuests WHERE lastname = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_result($id, $firstname, $lastname, $email);
     $stmt->execute();
