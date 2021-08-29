@@ -10,20 +10,31 @@
 </head>
 
 <body>
-    <?php if (isset($_REQUEST["login"])) {
-        $sql = "SELECT email, password FROM Users WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
-        $id = $_REQUEST["id"];
-        $stmt->bind_result($id, $firstname, $lastname, $email);
+    <?php
+    if ($stmt = $con->prepare('SELECT id, password FROM Users WHERE email = ?')) {
+        $stmt->bind_param('s',  $_POST["email"]);
         $stmt->execute();
-        $stmt->fetch();
+        $stmt->store_result();
+        if ($stmt->num_rows > 0) {
+            $stmt->bind_result($id, $password);
+            $stmt->fetch();
+            if (password_verify($_POST['password'], $password)) {
+                session_regenerate_id();
+                $_SESSION['loggedin'] = TRUE;
+                $_SESSION['name'] = $_POST['username'];
+                $_SESSION['id'] = $id;
+                header('Location: show.php');
+            } else {
+                echo '<script language="javascript">alert("Incorrect password!"); window.location="login.php";</script>';
+                session_destroy();
+            }
+        } else {
+            echo '<script language="javascript">alert("Incorrect username!"); window.location="login.php";</script>';
+            session_destroy();
+        }
         $stmt->close();
-    } ?>
-    Welcome <?php echo $_POST["name"]; ?><br>
-    Your email address is: <?php echo $_POST["email"]; ?>
-    </form>
-    </form>
+    }
+    ?>
 </body>
 
 </html>
