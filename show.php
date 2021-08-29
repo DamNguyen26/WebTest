@@ -13,9 +13,9 @@ table, th, td {
 <body>
 <div>
 <?php
-$sql = "SELECT id, firstname, lastname FROM MyGuests";
+$sql = "SELECT id, firstname, lastname, email FROM MyGuests";
 $stmt = $conn->prepare($sql);
-$stmt->bind_result($id, $firstname, $lastname);
+$stmt->bind_result($id, $firstname, $lastname, $email);
 $stmt->execute();
 $stmt->store_result();
 
@@ -24,11 +24,12 @@ if ($stmt->num_rows > 0)
     echo "<table>";
     echo "<theader>";
         echo "<tr>";
-        echo "<th>ID</th>";
-        echo "<th>firstname</th>";
-        echo "<th>lastname</th>";
-        echo "<th>edit</th>";
-        echo "<th>delete</th>";
+        echo "<th>Id</th>";
+        echo "<th>First name</th>";
+        echo "<th>Last name</th>";
+        echo "<th>Email</th>";
+        echo "<th>Edit</th>";
+        echo "<th>Delete</th>";
         echo "</tr>";
     echo "</theader>";
     echo "<tbody>";
@@ -39,6 +40,7 @@ if ($stmt->num_rows > 0)
             echo "<td>" . $id . "</td>";
             echo "<td>" . $firstname . "</td>";
             echo "<td>" . $lastname . "</td>";
+            echo "<td>" . $email . "</td>";
             echo '<td><form action="formUpdate.php" method="post"><input type="hidden" name = "id" value ='.$id.'><input type = "submit" value="Edit" name = "edit"></form></td>';
             echo '<td><form action="includes/function/delete.php" method="post"><input type="hidden" name = "id" value ='.$id.'><input type = "submit" value="Delete" name = "delete"></form></td>';
             echo "</tr>";
