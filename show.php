@@ -13,28 +13,44 @@ table, th, td {
 <body>
 <div>
 <?php
-$sql = "SELECT id, firstname, lastname FROM MyGuests ORDER BY lastname";
-$result = $conn->query($sql);
+$sql = "SELECT id, firstname, lastname FROM MyGuests";
+$stmt = $conn->prepare($sql);
+$stmt->bind_result($id, $firstname, $lastname);
+$stmt->execute();
+$stmt->store_result();
 
-if ($result->num_rows > 0)
+if ($stmt->num_rows > 0)
 {
-    echo "<table>
-    <tr>
-    <th>ID</th>
-    <th>firstname</th>
-    <th>lastname</th>
-    </tr>";
+    echo "<table>";
+    echo "<theader>";
+        echo "<tr>";
+        echo "<th>ID</th>";
+        echo "<th>firstname</th>";
+        echo "<th>lastname</th>";
+        echo "<th>edit</th>";
+        echo "<th>delete</th>";
+        echo "</tr>";
+    echo "</theader>";
+    echo "<tbody>";
     // output data of each row
-    while ($row = $result->fetch_assoc())
-    {
-        echo "<tr><td>" . $row["id"] . "</td><td>" . $row["firstname"] . "</td><td>" . $row["lastname"] . "</td></tr>";
-    }
+        while ($stmt->fetch())
+        {
+            echo "<tr>";
+            echo "<td>" . $id . "</td>";
+            echo "<td>" . $firstname . "</td>";
+            echo "<td>" . $lastname . "</td>";
+            echo '<td><form action="formUpdate.php" method="post"><input type="hidden" name = "id" value ='.$id.'><input type = "submit" value="Edit" name = "edit"></form></td>';
+            echo '<td><form action="includes/function/delete.php" method="post"><input type="hidden" name = "id" value ='.$id.'><input type = "submit" value="Delete" name = "delete"></form></td>';
+            echo "</tr>";
+        }
+    echo "</tbody>";
     echo "</table>";
 }
 else
 {
     echo "0 results";
 }
+$stmt->close();
 $conn->close();
 ?>
 </div>
