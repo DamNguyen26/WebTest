@@ -10,11 +10,13 @@
 </head>
 
 <body>
-    <form action="welcome_get.php" method="post">
-        Name: <input type="text" name="name"><br>
-        E-mail: <input type="text" name="email"><br>
-        <input type="submit">
-    </form>
+
+    <form action="welcome.php" method="post">
+        <label for="email">Email:</label><br>
+        <input type="text" name="email" required><br>
+        <label for="password">Password:</label><br>
+        <input type="password" name="password" required><br><br>
+        <input type="submit" name="login" value="Submit">
     </form>
 </body>
 
