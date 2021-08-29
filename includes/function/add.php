@@ -2,7 +2,7 @@
 require_once "connection.php";
 
 if (isset($_REQUEST["add"])) {
-    $sql = "INSERT INTO MyGuests (firstname, lastname, email) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO Users (firstname, lastname, email) VALUES (?, ?, ?)";
     // Prepare and bind
     $stmt = $conn->prepare($sql);
     if ($stmt) {
