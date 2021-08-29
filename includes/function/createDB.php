@@ -6,21 +6,16 @@ $password = "";
 // Create connection
 $conn = new mysqli($servername, $username, $password);
 // Check connection
-if ($conn->connect_error)
-{
+if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
 // Create database
 $sql = "CREATE DATABASE myDBTest";
-if ($conn->query($sql) === true)
-{
+if ($conn->query($sql) === true) {
     echo "Database created successfully";
-}
-else
-{
+} else {
     echo "Error creating database: " . $conn->error;
 }
 
 $conn->close();
-?>
