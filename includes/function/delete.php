@@ -9,10 +9,10 @@ if (isset($_REQUEST["delete"])) {
         $id = $_REQUEST["id"];
         $stmt->execute();
         echo "Record deleted successfully";
+        echo '<a href="../../show.php">Show</a>';
     } else {
         echo "Error deleting record: " . $conn->error;
     }
     $stmt->close();
     $conn->close();
 }
-?>
