@@ -2,7 +2,7 @@
 require_once "connection.php";
 
 if (isset($_REQUEST["update"])) {
-    $sql = "UPDATE MyGuests SET firstname = ?, lastname = ?, email = ? WHERE id = ?";
+    $sql = "UPDATE Users SET firstname = ?, lastname = ?, email = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
     if ($stmt) {
         $stmt->bind_param("sssi", $firstname, $lastname, $email, $id);
