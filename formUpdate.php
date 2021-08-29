@@ -11,8 +11,7 @@
 
 <body>
     <?php if (isset($_REQUEST["edit"])) {
-        $sql =
-            "SELECT id, firstname, lastname, email FROM MyGuests WHERE id = ?";
+        $sql = "SELECT id, firstname, lastname, email FROM Users WHERE id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $id = $_REQUEST["id"];
@@ -26,26 +25,16 @@
 
     <form action="includes/function/update.php" method="post">
         <label for="id">Id:</label><br>
-        <input type="text" name="id" value="<?php if (isset($id)) {
-            echo $id;
-        } ?>" readonly><br>
+        <input type="text" name="id" value="<?php if(isset($id)){echo $id;}?>" readonly><br>
 
         <label for="firstname">First name:</label><br>
-        <input type="text" name="firstname" value="<?php if (
-            isset($firstname)
-        ) {
-            echo $firstname;
-        } ?>"><br>
+        <input type="text" name="firstname" value="<?php if(isset($firstname)){echo $firstname;}?>"><br>
 
         <label for="lastname">Last name:</label><br>
-        <input type="text" name="lastname" value="<?php if (isset($lastname)) {
-            echo $lastname;
-        } ?>"><br>
+        <input type="text" name="lastname" value="<?php if(isset($lastname)){echo $lastname;}?>"><br>
 
         <label for="email">Email:</label><br>
-        <input type="text" name="email" value="<?php if (isset($email)) {
-            echo $email;
-        } ?>"><br><br>
+        <input type="text" name="email" value="<?php if(isset($email)){echo $email;}?>"><br><br>
 
         <input type="submit" name="update" value="Submit">
     </form>
