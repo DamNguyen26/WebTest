@@ -2,7 +2,7 @@
 require_once "connection.php";
 
 if (isset($_REQUEST["delete"])) {
-    $sql = "DELETE FROM MyGuests WHERE id = ?";
+    $sql = "DELETE FROM Users WHERE id = ?";
     $stmt = $conn->prepare($sql);
     if ($stmt) {
         $stmt->bind_param("i", $id);
