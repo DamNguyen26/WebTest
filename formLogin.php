@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
     <form action="welcome.php" method="post">
         <label for="email">Email:</label><br>
         <input type="text" name="email" required><br>
