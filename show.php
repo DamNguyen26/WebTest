@@ -14,7 +14,7 @@
 
 <body>
     <?php
-    $sql = "SELECT id, firstname, lastname, email FROM MyGuests";
+    $sql = "SELECT id, firstname, lastname, email FROM Users";
     $stmt = $conn->prepare($sql);
     $stmt->bind_result($id, $firstname, $lastname, $email);
     $stmt->execute();
