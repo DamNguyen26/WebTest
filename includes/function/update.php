@@ -2,10 +2,11 @@
 require_once "connection.php";
 
 if (isset($_REQUEST["update"])) {
-    $sql = "UPDATE MyGuests SET firstname = ?, lastname = ?, email = ? WHERE id = ?";
+    $sql =
+        "UPDATE MyGuests SET firstname = ?, lastname = ?, email = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
     if ($stmt) {
-        $stmt->bind_param('sssi', $firstname, $lastname, $email, $id);
+        $stmt->bind_param("sssi", $firstname, $lastname, $email, $id);
         // Set parameters and execute
         $firstname = $_REQUEST["firstname"];
         $lastname = $_REQUEST["lastname"];
