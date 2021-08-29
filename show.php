@@ -30,6 +30,7 @@
         echo "<th>Email</th>";
         echo "<th>Edit</th>";
         echo "<th>Delete</th>";
+        echo '<th><a href="formAdd.php">Add</a></th>';
         echo "</tr>";
         echo "</theader>";
         echo "<tbody>";
@@ -52,6 +53,7 @@
         echo "</table>";
     } else {
         echo "0 results";
+        echo '<a href="formAdd.php">Add</a>';
     }
     $stmt->close();
     $conn->close();
