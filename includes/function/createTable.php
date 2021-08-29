@@ -1,5 +1,5 @@
 <?php
-require_once ("connection.php");
+require_once "connection.php";
 
 // Sql to create table
 $sql = "CREATE TABLE MyGuests (
@@ -10,14 +10,10 @@ $sql = "CREATE TABLE MyGuests (
     reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     )";
 
-if ($conn->query($sql) === true)
-{
+if ($conn->query($sql) === true) {
     echo "Table MyGuests created successfully";
-}
-else
-{
+} else {
     echo "Error creating table: " . $conn->error;
 }
 
 $conn->close();
-?>
