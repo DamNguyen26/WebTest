@@ -2,14 +2,15 @@
 require_once "connection.php";
 
 if (isset($_REQUEST["update"])) {
-    $sql = "UPDATE MyGuests SET id = ?, firstname = ?, lastname = ? WHERE id = ?";
+    $sql = "UPDATE MyGuests SET firstname = ?, lastname = ?, email = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
     if ($stmt) {
-        $stmt->bind_param("issi", $id, $firstname, $lastname, $id);
+        $stmt->bind_param('sssi', $firstname, $lastname, $email, $id);
         // Set parameters and execute
-        $id = $_REQUEST["id"];
         $firstname = $_REQUEST["firstname"];
         $lastname = $_REQUEST["lastname"];
+        $email = $_REQUEST["email"];
+        $id = $_REQUEST["id"];
         $stmt->execute();
         echo "Record updated successfully";
     } else {
