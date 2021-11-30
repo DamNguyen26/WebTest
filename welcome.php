@@ -11,25 +11,25 @@
 
 <body>
     <?php
-    if ($stmt = $con->prepare('SELECT id, password FROM Users WHERE email = ?')) {
-        $stmt->bind_param('s',  $_POST["email"]);
+    if (isset($_REQUEST["login"])) {
+        $sql = "SELECT id, password FROM Users WHERE email = ? AND password = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('ss',  $email, $password);
+        $email = $_POST["email"];
+        $password = $_POST["password"];
         $stmt->execute();
         $stmt->store_result();
-        if ($stmt->num_rows > 0) {
-            $stmt->bind_result($id, $password);
-            $stmt->fetch();
-            if (password_verify($_POST['password'], $password)) {
-                session_regenerate_id();
-                $_SESSION['loggedin'] = TRUE;
+        $hash = password_hash( $password , PASSWORD_DEFAULT );
+        if (password_verify( $password, $hash)) {
+            if ( password_needs_rehash ( $hash, PASSWORD_DEFAULT ) ) {
+                $newHash = password_hash( $password, PASSWORD_DEFAULT );
+//                session_regenerate_id();
+//                $_SESSION['loggedin'] = TRUE;
                 $_SESSION['name'] = $_POST['username'];
-                $_SESSION['id'] = $id;
                 header('Location: show.php');
-            } else {
-                echo '<script language="javascript">alert("Incorrect password!"); window.location="login.php";</script>';
-                session_destroy();
             }
         } else {
-            echo '<script language="javascript">alert("Incorrect username!"); window.location="login.php";</script>';
+            echo '<script language="javascript">alert("Incorrect password!"); window.location="formLogin.php";</script>';
             session_destroy();
         }
         $stmt->close();

@@ -14,6 +14,8 @@
     <?php
     $sql = "SELECT id, firstname, lastname, email FROM Users WHERE lastname = ?";
     $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $lastname);
+    $lastname = $_REQUEST["lastname"];
     $stmt->bind_result($id, $firstname, $lastname, $email);
     $stmt->execute();
     $stmt->store_result();
@@ -50,6 +52,7 @@
         echo "</table>";
     } else {
         echo "0 results";
+        echo '<a href="formSearch.php">Search</a>';
     }
     $stmt->close();
     $conn->close();

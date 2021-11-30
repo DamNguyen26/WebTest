@@ -31,6 +31,7 @@
         echo "<th>Edit</th>";
         echo "<th>Delete</th>";
         echo '<th><a href="formAdd.php">Add</a></th>';
+        echo '<th><a href="formSearch.php">Search</a></th>';
         echo "</tr>";
         echo "</theader>";
         echo "<tbody>";

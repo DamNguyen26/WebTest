@@ -18,7 +18,10 @@
         <input type="text" name="lastname" required><br>
 
         <label for="email">Email:</label><br>
-        <input type="text" name="email" required><br><br>
+        <input type="text" name="email" required><br>
+
+        <label for="password">Password:</label><br>
+        <input type="password" name="password" required><br><br>
 
         <input type="submit" name="add" value="Submit">
     </form>

@@ -2,15 +2,18 @@
 require_once "connection.php";
 
 if (isset($_REQUEST["add"])) {
-    $sql = "INSERT INTO Users (firstname, lastname, email) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO Users (firstname, lastname, email, password) VALUES (?, ?, ?, ?)";
     // Prepare and bind
     $stmt = $conn->prepare($sql);
     if ($stmt) {
-        $stmt->bind_param("sss", $firstname, $lastname, $email);
+        $stmt->bind_param("ssss", $firstname, $lastname, $email, $password);
         // Set parameters and execute
         $firstname = $_POST["firstname"];
         $lastname = $_POST["lastname"];
         $email = $_POST["email"];
+        $pass = $_POST["password"];
+        $passwordHashed = password_hash($pass, PASSWORD_BCRYPT);
+        $password = $passwordHashed;
         $stmt->execute();
         echo "New records created successfully";
         echo '<a href="../../show.php">Show</a>';
