@@ -12,25 +12,31 @@
 <body>
     <?php
     if (isset($_REQUEST["login"])) {
-        $sql = "SELECT id FROM Users WHERE email = ? AND password = ?";
+        $sql = "SELECT email, password FROM Users WHERE email = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('ss',  $email, $password);
+        $stmt->bind_param('s',  $email);
+
         $email = $_POST["email"];
-        $pass = $_POST["password"];
-//        $passwordHashed = password_hash( $pass , PASSWORD_DEFAULT );
-        if (password_verify($pass, $password)) {
-//            if (password_needs_rehash ($pass, PASSWORD_DEFAULT ) ) {
-                $stmt->execute();
+        $password = $_POST["password"];
+        $stmt->execute();
+        $stmt->bind_result($email, $password);
+        $row = $stmt->fetch();
+        if (!empty($row)){
+            if (password_verify($password, $row["password"])) {
+                echo "success";
 //                session_regenerate_id();
-//                $_SESSION['loggedin'] = TRUE;
-//                $_SESSION['name'] = $_POST['username'];
+                $_SESSION['loggedin'] = TRUE;
+                $_SESSION['name'] = $_POST['username'];
                 header('Location: show.php');
-//            }
-        } else {
-            echo '<script language="javascript">alert("Incorrect password!"); window.location="formLogin.php";</script>';
-            session_destroy();
+            } else {
+                echo '<script language="javascript">alert("Invalid username or password!"); window.location="formLogin.php";</script>';
+                session_destroy();
+            }
+        }else {
+            echo "This User Name does not exist";
         }
         $stmt->close();
+        $conn->close();
     }
     ?>
 </body>
