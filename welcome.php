@@ -16,13 +16,12 @@
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('ss',  $email, $password);
         $email = $_POST["email"];
-        $password = $_POST["password"];
-        $stmt->execute();
-        $stmt->store_result();
-        $hash = password_hash( $password , PASSWORD_DEFAULT );
-        if (password_verify( $password, $hash)) {
-            if ( password_needs_rehash ( $hash, PASSWORD_DEFAULT ) ) {
-                $newHash = password_hash( $password, PASSWORD_DEFAULT );
+        $pass = $_POST["password"];
+        $passwordHashed = password_hash( $pass , PASSWORD_DEFAULT );
+        if (password_verify( $pass, $passwordHashed)) {
+            if ( password_needs_rehash ( $pass, PASSWORD_DEFAULT ) ) {
+                $password = password_hash( $pass, PASSWORD_DEFAULT );
+                $stmt->execute();
 //                session_regenerate_id();
 //                $_SESSION['loggedin'] = TRUE;
                 $_SESSION['name'] = $_POST['username'];
