@@ -34,7 +34,13 @@
         <input type="text" name="lastname" value="<?php if(isset($lastname)){echo $lastname;}?>"><br>
 
         <label for="email">Email:</label><br>
-        <input type="text" name="email" value="<?php if(isset($email)){echo $email;}?>"><br><br>
+        <input type="text" name="email" value="<?php if(isset($email)){echo $email;}?>"><br>
+
+        <label for="oldPassword">Old password:</label><br>
+        <input type="password" name="oldPassword"><br>
+
+        <label for="newPassword">New password:</label><br>
+        <input type="password" name="newPassword"><br><br>
 
         <input type="submit" name="update" value="Submit">
     </form>

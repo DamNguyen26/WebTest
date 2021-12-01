@@ -12,21 +12,20 @@
 <body>
     <?php
     if (isset($_REQUEST["login"])) {
-        $sql = "SELECT id, password FROM Users WHERE email = ? AND password = ?";
+        $sql = "SELECT id FROM Users WHERE email = ? AND password = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('ss',  $email, $password);
         $email = $_POST["email"];
         $pass = $_POST["password"];
-        $passwordHashed = password_hash( $pass , PASSWORD_DEFAULT );
-        if (password_verify( $pass, $passwordHashed)) {
-            if ( password_needs_rehash ( $pass, PASSWORD_DEFAULT ) ) {
-                $password = password_hash( $pass, PASSWORD_DEFAULT );
+//        $passwordHashed = password_hash( $pass , PASSWORD_DEFAULT );
+        if (password_verify($pass, $password)) {
+//            if (password_needs_rehash ($pass, PASSWORD_DEFAULT ) ) {
                 $stmt->execute();
 //                session_regenerate_id();
 //                $_SESSION['loggedin'] = TRUE;
-                $_SESSION['name'] = $_POST['username'];
+//                $_SESSION['name'] = $_POST['username'];
                 header('Location: show.php');
-            }
+//            }
         } else {
             echo '<script language="javascript">alert("Incorrect password!"); window.location="formLogin.php";</script>';
             session_destroy();

@@ -12,7 +12,7 @@ if (isset($_REQUEST["add"])) {
         $lastname = $_POST["lastname"];
         $email = $_POST["email"];
         $pass = $_POST["password"];
-        $passwordHashed = password_hash($pass, PASSWORD_BCRYPT);
+        $passwordHashed = password_hash($pass, PASSWORD_DEFAULT);
         $password = $passwordHashed;
         $stmt->execute();
         echo "New records created successfully";
